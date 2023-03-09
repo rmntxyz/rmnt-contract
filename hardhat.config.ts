@@ -3,6 +3,7 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy";
 import "./scripts/createRarement";
+import "./scripts/verifyContract";
 import * as dotenv from "dotenv";
 import { HardhatUserConfig } from "hardhat/types/config";
 
@@ -10,26 +11,13 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: {
-    //compilers: [
-    //  {
-        version: '0.8.9',
-        settings: {
-          optimizer: {
-            enabled: true,
-            runs: 200,
-          },
-        }
-    //  },
-    //  {
-    //    version: '0.8.10',
-    //    settings: {
-    //      optimizer: {
-    //        enabled: true,
-    //        runs: 200,
-    //      },
-    //    }
-    //  },
-    //]
+    version: '0.8.17',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    }
   },
   networks: {
     hardhat: {
