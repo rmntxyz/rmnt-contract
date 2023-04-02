@@ -130,12 +130,14 @@ contract Rarement is
     }
 
     function initialize(
-        address,
+        address owner,
         uint128 id,
         RarementInfo calldata rarementData
     ) public initializer {
         __ERC721_init(rarementData.name, rarementData.symbol);
         __Ownable_init();
+
+        transferOwnership(owner);
 
         rarementId = id;
         numAvailableTokens = rarementData.maxSupply;

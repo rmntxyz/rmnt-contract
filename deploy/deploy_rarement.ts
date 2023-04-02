@@ -1,20 +1,18 @@
-import {HardhatRuntimeEnvironment} from 'hardhat/types';
-import {DeployFunction} from 'hardhat-deploy/types';
-
-const NETWORK_MAP = {
-  1: 'mainnet',
-  5: 'goerli',
-  80001: 'polygon mumbai',
-  137: 'polygon mainnet',
-  1337: 'hardhat',
-  31337: 'hardhat',
-};
+import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import { DeployFunction } from 'hardhat-deploy/types';
+import { readJson, writeJson } from '../scripts/utils';
+import { NETWORK_MAP } from '../scripts/constant';
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { ethers, network, deployments } = hre;
   const chainId = parseInt(await network.provider.send("eth_chainId"));
   const networkName = NETWORK_MAP[chainId];
   const [deployer] = await ethers.getSigners();
+  const addresses = await readJson('addresses.json');
+
+  if (!addresses[networkName]) {
+    addresses[networkName] = {};
+  }
 
   console.log(`Start Deployment to ${networkName} (chainId ${chainId})`);
 
@@ -29,8 +27,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
         args: [],
       },
     }
-  });  
+  });
   console.log(`[RarementCreator(proxy)]: ${deployResult.address}`);
+  addresses[networkName]['RarementCreator'] = deployResult.address;
 
   const rarementCreatorImp = await ethers.getContract('RarementCreator_Implementation', deployer);
   console.log(`[RarementCreator(implementation)]: ${rarementCreatorImp.address}`);
@@ -38,10 +37,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const rarementCreator = await ethers.getContractAt('RarementCreator', deployResult.address);
   const beaconAddress = await rarementCreator.beaconAddress();
   console.log(`[RarementCreator.beaconAddress]: ${beaconAddress}`);
+  addresses[networkName]['Beacon'] = beaconAddress;
 
   const beacon = await ethers.getContractAt('UpgradeableBeacon', beaconAddress);
   const rarementImplAddr = await beacon.implementation();
   console.log(`[Rarement(implementation)]: ${rarementImplAddr}`);
+
+  await writeJson(addresses, 'addresses.json')
 
   // const Rarement = await ethers.getContractFactory('Rarement');
   //const rarement = await ethers.getContractAt('Rarement', rarementImplAddr, deployer);

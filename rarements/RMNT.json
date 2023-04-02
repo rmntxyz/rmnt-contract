@@ -1,0 +1,17 @@
+{
+  "artistId": 4,
+  "name": "Rarement",
+  "symbol": "RMNT",
+  "baseURI": "ipfs://QmWHvbuHaMf8UekwHMvWS21M7Tt3ZSRZDAgJTNmxYXhSY3/",
+  "fundingRecipient": "0xaD7863dA4f4eef797AA5Dc27997349866320F272",
+  "royaltyBPS": 200,
+  "presalePrice": 0,
+  "presaleStartTime": 0,
+  "price": "2000000000000000",
+  "startTime": 1675581324,
+  "endTime": 1775584925,
+  "maxSupply": 100,
+  "cutoffSupply": 0,
+  "maxMintablePerAccount": 3,
+  "flags": 0
+}

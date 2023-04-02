@@ -1,1 +1,10 @@
-{}
+{
+  "hardhat": {
+    "RarementCreator": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    "Beacon": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e"
+  },
+  "polygon mumbai": {
+    "RarementCreator": "0xC2a9FeAEd61Ab599AF348DcF4ceFF1CD9cCfb581",
+    "Beacon": "0x70509588A539E40cefF81D52304FDf5410DF3e5B"
+  }
+}

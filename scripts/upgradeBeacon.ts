@@ -10,14 +10,14 @@ task('upgradeBeacon', 'Calls upgradeTo on an UpgradeableBeacon that points to Ra
     //const { network, ethers } = hardhat;
 
     //console.log(`Upgrading the beacon implementation to ${newImplementation} on ${network.name}`);
-    //const [soundDeployer] = await ethers.getSigners();
+    //const [deployer] = await ethers.getSigners();
 
-    //const beacon = await ethers.getContractAt('UpgradeableBeacon', beaconAddress, soundDeployer);
+    //const beacon = await ethers.getContractAt('UpgradeableBeacon', beaconAddress, deployer);
     //const currentOwner = await beacon.owner();
     //const currentImplementation = await beacon.implementation();
     //console.log({ currentOwner, currentImplementation });
 
-    //if (currentOwner !== soundDeployer.address) {
+    //if (currentOwner !== deployer.address) {
     //  throw new Error(`The beacon is not owned by the deployer`);
     //}
     //const tx = await beacon.upgradeTo(newImplementation);
