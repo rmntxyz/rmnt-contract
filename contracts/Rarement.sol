@@ -16,8 +16,6 @@ import {IERC2981Upgradeable, IERC165Upgradeable} from "@openzeppelin/contracts-u
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 struct RarementInfo {
-    // artist ID
-    uint128 artistId;
     // name
     string name;
     // symbol
@@ -65,7 +63,7 @@ contract Rarement is
     uint8 public constant PRESALE_ENABLED_FLAG = 1 << 1;
 
     // boolean flag on whether the 'cutoff supply' is enabled.
-    uint8 public constant CUTOFF_SUPPLY_ENABLED_FLAG = 1 << 1;
+    uint8 public constant CUTOFF_SUPPLY_ENABLED_FLAG = 1 << 2;
 
     // =============================================================
     //                            STORAGE
@@ -92,13 +90,11 @@ contract Rarement is
 
     event MerkleRootSet(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         bytes32 merkleRoot
     );
 
     event Presold(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address indexed buyer,
         uint32[] tokenId,
         uint32 minted
@@ -106,7 +102,6 @@ contract Rarement is
 
     event Minted(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address indexed buyer,
         uint32[] tokenId,
         uint32 minted
@@ -114,7 +109,6 @@ contract Rarement is
 
     event Airdropped(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address[] to,
         uint32 quantity,
         uint32 minted
@@ -165,7 +159,7 @@ contract Rarement is
 
         merkleRoot = merkleRootHash;
 
-        emit MerkleRootSet(rarementId, info.artistId, merkleRootHash);
+        emit MerkleRootSet(rarementId, merkleRootHash);
     }
 
     function totalSupply() public view virtual returns (uint32) {
@@ -192,11 +186,11 @@ contract Rarement is
             uint256 toLength = to.length;
             // Mint the tokens. Will revert if `quantity` is zero.
             for (uint256 i; i != toLength; ++i) {
-                _mintRarement(to[i], 0, quantity);
+                _mintRarement(to[i], quantity, 0);
             }
         }
 
-        emit Airdropped(rarementId, info.artistId, to, quantity, totalSupply());
+        emit Airdropped(rarementId, to, quantity, totalSupply());
     }
 
     function presale(uint32 quantity, bytes32[] calldata merkleProof)
@@ -233,7 +227,6 @@ contract Rarement is
 
         emit Presold(
             rarementId,
-            info.artistId,
             msg.sender,
             tokenIds,
             totalSupply()
@@ -259,7 +252,6 @@ contract Rarement is
 
         emit Minted(
             rarementId,
-            info.artistId,
             msg.sender,
             tokenIds,
             totalSupply()

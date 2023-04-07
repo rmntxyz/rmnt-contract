@@ -48,7 +48,6 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // const Rarement = await ethers.getContractFactory('Rarement');
   //const rarement = await ethers.getContractAt('Rarement', rarementImplAddr, deployer);
   //const tx = await rarement.initialize(deployer.address, 0, {
-  //  artistId: 0,
   //  name: "Rarement",
   //  symbol: "RMNT",
   //  baseURI: "https://rmnt.xyz/metadata/",

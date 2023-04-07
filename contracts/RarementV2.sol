@@ -16,8 +16,6 @@ import {IERC2981Upgradeable, IERC165Upgradeable} from "@openzeppelin/contracts-u
 import {MerkleProof} from "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 
 struct RarementInfo {
-    // artist ID
-    uint128 artistId;
     // name
     string name;
     // symbol
@@ -92,13 +90,11 @@ contract RarementV2 is
 
     event MerkleRootSet(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         bytes32 merkleRoot
     );
 
     event Presold(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address indexed buyer,
         uint32[] tokenId,
         uint32 minted
@@ -106,7 +102,6 @@ contract RarementV2 is
 
     event Minted(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address indexed buyer,
         uint32[] tokenId,
         uint32 minted
@@ -114,7 +109,6 @@ contract RarementV2 is
 
     event Airdropped(
         uint128 indexed rarementId,
-        uint128 indexed artistId,
         address[] to,
         uint32 quantity,
         uint32 minted
@@ -163,7 +157,7 @@ contract RarementV2 is
 
         merkleRoot = merkleRootHash;
 
-        emit MerkleRootSet(rarementId, info.artistId, merkleRootHash);
+        emit MerkleRootSet(rarementId, merkleRootHash);
     }
 
     function totalSupply() public view virtual returns (uint32) {
@@ -194,7 +188,7 @@ contract RarementV2 is
             }
         }
 
-        emit Airdropped(rarementId, info.artistId, to, quantity, totalSupply());
+        emit Airdropped(rarementId, to, quantity, totalSupply());
     }
 
     function presale(uint32 quantity, bytes32[] calldata merkleProof)
@@ -231,7 +225,6 @@ contract RarementV2 is
 
         emit Presold(
             rarementId,
-            info.artistId,
             msg.sender,
             tokenIds,
             totalSupply()
@@ -257,7 +250,6 @@ contract RarementV2 is
 
         emit Minted(
             rarementId,
-            info.artistId,
             msg.sender,
             tokenIds,
             totalSupply()

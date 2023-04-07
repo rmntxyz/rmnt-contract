@@ -38,7 +38,6 @@ contract RarementCreator is Initializable, UUPSUpgradeable, OwnableUpgradeable {
     // emitted when an Rarement is created
     event RarementCreated(
         uint256 indexed rarementId,
-        uint256 indexed artistId,
         RarementInfo info,
         address indexed rarementAddress
     );
@@ -83,7 +82,7 @@ contract RarementCreator is Initializable, UUPSUpgradeable, OwnableUpgradeable {
 
         rarementContracts.push(address(proxy));
 
-        emit RarementCreated(rarementId, info.artistId, info, address(proxy));
+        emit RarementCreated(rarementId, info, address(proxy));
 
         numRarements.increment();
 

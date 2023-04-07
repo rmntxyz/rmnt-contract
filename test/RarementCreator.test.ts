@@ -23,7 +23,6 @@ describe('RarementCreator', () => {
 
   const startTime = now();
   const dummyArgsForRarementInit = {
-    artistId: 0,
     name: "Rarement",
     symbol: "RMNT",
     baseURI: "https://rmnt.xyz/metadata/",
@@ -101,7 +100,6 @@ describe('RarementCreator', () => {
     const startTime = now();
 
     const tx = await rarementCreator.createRarement({
-      artistId: 0,
       name: "Tango Volume1",
       symbol: "TNGV1",
       baseURI: "ipfs://QmWHvbuHaMf8UekwHMvWS21M7Tt3ZSRZDAgJTNmxYXhSY3/",
@@ -137,7 +135,6 @@ describe('RarementCreator', () => {
 
     const startTime = now();
     const tx = await rarementCreator.createRarement({
-      artistId: 0,
       name: "Tango Volume2",
       symbol: "TNGV2",
       baseURI: "ipfs://QmWHvbuHaMf8UekwHMvWS21M7Tt3ZSRZDAgJTNmxYXhSY3/",
