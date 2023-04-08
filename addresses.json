@@ -4,7 +4,11 @@
     "Beacon": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e"
   },
   "polygon mumbai": {
-    "RarementCreator": "0xB78FA1920E6715Bd22d2C950DEccb833ad6D1605",
-    "Beacon": "0xF965AFa229c8Fc517C3d54Ec82CaCB5aE2745F85"
+    "RarementCreator": "0xaf49a3c0D808Eb4f779dCa5f6A6Bd6bB24A223e4",
+    "Beacon": "0x2045b525FbAF5376f6adAD654350B350B70Ea632"
+  },
+  "polygon mainnet": {
+    "RarementCreator": "0xfA3BdCBB128088d1FAE2DBAe2a5dc976d245c48A",
+    "Beacon": "0x481CeE9213a97A255794bE10399D06B4379fC15B"
   }
 }

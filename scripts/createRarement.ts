@@ -5,19 +5,26 @@ import axios from 'axios';
 
 task('createRarement', 'Calls createRarement on RarementCreator.sol')
   .addPositionalParam('rarementName', 'Configuration file name for Rarement initialization')
-  .addOptionalParam('avatarId', 'Avatar ID')
+  .addOptionalParam('artistId', 'Artist ID')
+  .addOptionalParam('webtoonId', 'Webtoon ID')
   .addOptionalParam('collectibleId', 'Collectible ID')
   .setAction(async (args, hardhat) => {
-    let { rarementName, avatarId, collectibleId } = args;
+     let { rarementName, artistId, webtoonId, collectibleId } = args;
     const { network, ethers } = hardhat;
     const chainId = parseInt(await network.provider.send("eth_chainId"));
     const networkName = NETWORK_MAP[chainId];
     const uri = API_URI_MAP[chainId];
 
-    if (avatarId) {
-      console.log(`AVARTAR ID: ${avatarId}`);
+    if (artistId) {
+      console.log(`ARTIST ID: ${artistId}`);
     } else {
-      avatarId = null;
+      artistId = null;
+    }
+
+    if (webtoonId) {
+      console.log(`WEBTOON ID: ${webtoonId}`);
+    } else {
+      webtoonId = null;
     }
 
     if (collectibleId) {
@@ -35,7 +42,8 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
     const rarementCreator = await ethers.getContractAt('RarementCreator', rarementCreatorAddress);
     const tx = await rarementCreator.createRarement(config);
     const receipt = await tx.wait();
-    const eventData = rarementCreator.interface.parseLog(receipt.events[3]);
+    // fixme... maybe?
+    const eventData = rarementCreator.interface.parseLog(receipt.events[4]);
     const { rarementId, rarementAddress } = eventData.args;
     console.log(`RAREMENT ID: ${rarementId}`);
     console.log(`RAREMENT ADDRESS: ${rarementAddress}`);
@@ -44,7 +52,8 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
         ...config,
         contractAddress: rarementAddress,
         rarementId: rarementId.toNumber(),
-        avatarId,
+        artistId,
+        webtoonId,
         collectibleId
     }
 

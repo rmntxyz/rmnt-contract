@@ -6,11 +6,11 @@
   "royaltyBPS": 0,
   "presalePrice": 0,
   "presaleStartTime": 0,
-  "price": "2000000000000000",
-  "startTime": 1680800400,
-  "endTime": 1681059600,
+  "price": 0,
+  "startTime": 0,
+  "endTime": 4294967295,
   "maxSupply": 5,
   "cutoffSupply": 0,
   "maxMintablePerAccount": 1,
-  "flags": 0
+  "flags": 1
 }
