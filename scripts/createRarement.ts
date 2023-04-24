@@ -42,19 +42,28 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
     const rarementCreator = await ethers.getContractAt('RarementCreator', rarementCreatorAddress);
     const tx = await rarementCreator.createRarement(config);
     const receipt = await tx.wait();
-    // fixme... maybe?
+
     const eventData = rarementCreator.interface.parseLog(receipt.events[4]);
     const { rarementId, rarementAddress } = eventData.args;
     console.log(`RAREMENT ID: ${rarementId}`);
     console.log(`RAREMENT ADDRESS: ${rarementAddress}`);
 
+    let rid = rarementId.toNumber();
+    if (chainId === 80001) {
+      rid += 1000000
+    }
+
+    // const rid = 0 + 10000000;
+    // const rarementAddress = "0x49174C31989578c27252F6A5F6b731A840585a72";
+
     const data = {
         ...config,
         contractAddress: rarementAddress,
-        rarementId: rarementId.toNumber(),
+        rarementId: rid,
         artistId,
         webtoonId,
-        collectibleId
+        collectibleId,
+        chainId
     }
 
     const res = await axios.post(`${uri}/rarements`, { data }, {
