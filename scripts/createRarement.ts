@@ -45,13 +45,15 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
 
     const eventData = rarementCreator.interface.parseLog(receipt.events[4]);
     const { rarementId, rarementAddress } = eventData.args;
-    console.log(`RAREMENT ID: ${rarementId}`);
-    console.log(`RAREMENT ADDRESS: ${rarementAddress}`);
 
     let rid = rarementId.toNumber();
     if (chainId === 80001) {
       rid += 1000000
     }
+
+    console.log(`RAREMENT ID: ${rid}`);
+    console.log(`RAREMENT ADDRESS: ${rarementAddress}`);
+
 
     // const rid = 0 + 10000000;
     // const rarementAddress = "0x49174C31989578c27252F6A5F6b731A840585a72";
