@@ -9,7 +9,7 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
   .addOptionalParam('webtoonId', 'Webtoon ID')
   .addOptionalParam('collectibleId', 'Collectible ID')
   .setAction(async (args, hardhat) => {
-     let { rarementName, artistId, webtoonId, collectibleId } = args;
+    let { rarementName, artistId, webtoonId, collectibleId } = args;
     const { network, ethers } = hardhat;
     const chainId = parseInt(await network.provider.send("eth_chainId"));
     const networkName = NETWORK_MAP[chainId];
@@ -54,18 +54,17 @@ task('createRarement', 'Calls createRarement on RarementCreator.sol')
     console.log(`RAREMENT ID: ${rid}`);
     console.log(`RAREMENT ADDRESS: ${rarementAddress}`);
 
-
-    // const rid = 0 + 10000000;
-    // const rarementAddress = "0x49174C31989578c27252F6A5F6b731A840585a72";
+    //const rid = 1;
+    //const rarementAddress = "0x3Be6836e984b0735cbef9256ec3d567880506c8A";
 
     const data = {
-        ...config,
-        contractAddress: rarementAddress,
-        rarementId: rid,
-        artistId,
-        webtoonId,
-        collectibleId,
-        chainId
+      ...config,
+      contractAddress: rarementAddress,
+      rarementId: rid,
+      artistId,
+      webtoonId,
+      collectibleId,
+      chainId
     }
 
     const res = await axios.post(`${uri}/rarements`, { data }, {

@@ -3,7 +3,7 @@ import "@nomicfoundation/hardhat-chai-matchers";
 import "@nomiclabs/hardhat-ethers";
 import "hardhat-deploy";
 import "./scripts/createRarement";
-import "./scripts/verifyContract";
+import "./scripts/upgradeRarement";
 import "./scripts/createMerkleRoot";
 import * as dotenv from "dotenv";
 import { HardhatUserConfig } from "hardhat/types/config";

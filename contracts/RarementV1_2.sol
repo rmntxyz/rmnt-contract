@@ -24,14 +24,14 @@ struct RarementInfo {
     string baseURI;
     // the account that will receive sales revenue.
     address payable fundingRecipient;
-    // the price at which each token will be sold, in ETH.
-    uint96 price;
-    // the price at which each token will be sold, in ETH, during the pre-sale.
-    uint96 presalePrice;
     // royalty
     uint16 royaltyBPS;
+    // the price at which each token will be sold, in ETH, during the pre-sale.
+    uint96 presalePrice;
     // presale start timestamp before public sale
     uint32 presaleStartTime;
+    // the price at which each token will be sold, in ETH.
+    uint96 price;
     // start timestamp of auction (in seconds since unix epoch)
     uint32 startTime;
     // end timestamp of auction (in seconds since unix epoch)
@@ -42,11 +42,11 @@ struct RarementInfo {
     uint32 cutoffSupply;
     // maximum number of minting per account
     uint32 maxMintablePerAccount;
-    // boolean options
+    // boolean for options
     uint8 flags;
 }
 
-contract RarementV2 is
+contract RarementV1_2 is
     Initializable,
     ERC721Upgradeable,
     IERC2981Upgradeable,
@@ -63,7 +63,7 @@ contract RarementV2 is
     uint8 public constant PRESALE_ENABLED_FLAG = 1 << 1;
 
     // boolean flag on whether the 'cutoff supply' is enabled.
-    uint8 public constant CUTOFF_SUPPLY_ENABLED_FLAG = 1 << 1;
+    uint8 public constant CUTOFF_SUPPLY_ENABLED_FLAG = 1 << 2;
 
     // =============================================================
     //                            STORAGE
@@ -124,12 +124,14 @@ contract RarementV2 is
     }
 
     function initialize(
-        address,
+        address owner,
         uint128 id,
         RarementInfo calldata rarementData
     ) public initializer {
         __ERC721_init(rarementData.name, rarementData.symbol);
         __Ownable_init();
+
+        transferOwnership(owner);
 
         rarementId = id;
         numAvailableTokens = rarementData.maxSupply;
@@ -184,7 +186,7 @@ contract RarementV2 is
             uint256 toLength = to.length;
             // Mint the tokens. Will revert if `quantity` is zero.
             for (uint256 i; i != toLength; ++i) {
-                _mintRarement(to[i], 0, quantity);
+                _mintRarement(to[i], quantity, 0);
             }
         }
 
@@ -427,7 +429,47 @@ contract RarementV2 is
         return result;
     }
 
-    function version() public pure returns (string memory) {
-        return "V2";
+    function setFundingRecipient(address payable fundingRecipient) external onlyOwner {
+        info.fundingRecipient = fundingRecipient;
+    }
+
+    function setCutoffSupply(uint32 cutoffSupply) external onlyOwner {
+        info.cutoffSupply = cutoffSupply;
+    }
+
+    function setMaxMintablePerAccount(uint32 maxMintablePerAccount) external onlyOwner {
+        info.maxMintablePerAccount = maxMintablePerAccount;
+    }
+
+    function setRoyaltyBPS(uint16 royaltyBPS) external onlyOwner {
+        info.royaltyBPS = royaltyBPS;
+    }
+
+    function setRandomMintEnabled(bool enabled) external onlyOwner {
+        require(totalSupply() == 0, "mints already exist");
+
+        bool randomMintEnabled = info.flags & RANDOM_MINT_ENABLED_FLAG != 0;
+
+        if (randomMintEnabled != enabled) {
+            info.flags ^= RANDOM_MINT_ENABLED_FLAG;
+        }
+    }
+
+    function setPresaleEnabled(bool enabled) external onlyOwner {
+        require(totalSupply() == 0, "mints already exist");
+
+        bool presaleEnabled = info.flags & PRESALE_ENABLED_FLAG != 0;
+
+        if (presaleEnabled != enabled) {
+            info.flags ^= PRESALE_ENABLED_FLAG;
+        }
+    }
+
+    function setCutoffSupplyEnabled(bool enabled) external onlyOwner {
+        bool cutoffSupplyEnabled = info.flags & CUTOFF_SUPPLY_ENABLED_FLAG != 0;
+
+        if (cutoffSupplyEnabled != enabled) {
+            info.flags ^= CUTOFF_SUPPLY_ENABLED_FLAG;
+        }
     }
 }

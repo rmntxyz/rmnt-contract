@@ -4,7 +4,7 @@
   "baseURI": "ipfs://QmfTg6Xa4tEaDB9WSzGzNS23Z3F1SUT7aYPsXx18yhJvwg/",
   "fundingRecipient": "0xB07c7761CCB66aD88375e14f76D3579A1515CE9b",
   "royaltyBPS": 5,
-  "presalePrice": 0,
+  "presalePrice": "0",
   "presaleStartTime": 0,
   "price": "3000000000000000",
   "startTime": 0,

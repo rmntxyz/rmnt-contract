@@ -1,14 +1,17 @@
 {
   "hardhat": {
     "RarementCreator": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-    "Beacon": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e"
+    "Beacon": "0x9f1ac54BEF0DD2f6f3462EA0fa94fC62300d3a8e",
+    "Rarement": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
   },
   "polygon mumbai": {
     "RarementCreator": "0xEC591081BDDBDb078958d3A4F6639D032fD76Bc9",
-    "Beacon": "0x09655Bb94e9706e88F747c5d8DF53a29E6f66c6d"
+    "Beacon": "0x09655Bb94e9706e88F747c5d8DF53a29E6f66c6d",
+    "Rarement": "0x4Ae12A65eEb6E9E3F1E512D2C83E2517Ed9b6C42"
   },
   "polygon mainnet": {
     "RarementCreator": "0xfA3BdCBB128088d1FAE2DBAe2a5dc976d245c48A",
-    "Beacon": "0x481CeE9213a97A255794bE10399D06B4379fC15B"
+    "Beacon": "0x481CeE9213a97A255794bE10399D06B4379fC15B",
+    "Rarement": "0xA2E3f51eB906831c09D48C31748F8309b92DE417"
   }
 }
