@@ -1,9 +1,9 @@
 {
   "name": "Dusty",
   "symbol": "DDKANG",
-  "baseURI": "ipfs://QmfTg6Xa4tEaDB9WSzGzNS23Z3F1SUT7aYPsXx18yhJvwg/",
+  "baseURI": "ipfs://QmcxXcjhKjQ8u47UZjbqMRjZhpFJMWPbCMqmY1gBEX43ne/",
   "fundingRecipient": "0xb013824D767EE47B641F209FEaE8c6D4dd356220",
-  "royaltyBPS": 5,
+  "royaltyBPS": 500,
   "presalePrice": "0",
   "presaleStartTime": 0,
   "price": "30000000000000000000",
